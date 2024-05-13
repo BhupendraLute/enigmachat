@@ -28,9 +28,10 @@ export default function Home() {
 				</div>
 			</nav>
 
-			<section className="py-8 px-2 md:px-8 w-full md:w-11/12 mx-auto flex max-md:flex-col h-[calc(100vh-4rem)]">
-				<div className="flex flex-col items-start py-12 px-4 md:py-28 text-center max-md:my-auto mx-8">
-					<h1 className="bg-gradient-to-l bg-clip-text text-transparent to-blue-400 from-blue-600 text-5xl md:text-6xl font-extrabold py-4 px-1 mx-auto">
+			<section className="py-8 px-2 md:px-8 w-full xl:w-10/12 mx-auto flex md:justify-center gap-8 md:gap-10 max-md:flex-col-reverse">
+				{/* left hero */}
+				<div className="flex flex-col items-start justify-center py-12 px-4 md:py-28 text-center max-md:my-auto">
+					<h1 className="bg-gradient-to-l bg-clip-text text-transparent to-blue-400 from-blue-600 text-5xl md:text-6xl font-extrabold py-4 mx-auto">
 						EnigmaChat
 					</h1>
 					<p className="text-gray-600 font-semibold text-2xl leading-tight mx-auto">
@@ -51,50 +52,52 @@ export default function Home() {
 					</div>
 				</div>
 
-				<div className="max-md:hidden w-full relative py-4 pl-14">
+				{/* right hero */}
+				<div className="w-full max-md:h-full relative ">
 					<div
-						className="absolute ml-16 top-16 w-[60%] h-[50%] bg-cover  bg-center bg-no-repeat bg-red-50 rounded-lg overflow-hidden shadow-md ring-1 ring-gray-200"
+						className="relative inset-0 w-[80%] h-80 max-md:w-full bg-cover  bg-center bg-no-repeat rounded-lg bg-clip shadow-md ring-1 ring-gray-200"
 						style={{ backgroundImage: "url('/hero-image1.jpg')" }}
-					></div>
-
-					{/* chats container */}
-					<div className="absolute md:ml-16 bottom-16 right-16 mb-10 w-[40%] overflow-hidden  flex flex-col gap-2 items-start justify-stretch p-2">
-						{/* chat card */}
-						<div className="flex items-start justify-stretch shadow-md ring-1 ring-gray-100 bg-gray-100 rounded-lg mr-14">
-							<div className="p-2">
-								<div className="w-12 h-12 rounded-full overflow-hidden ring-1 ring-gray-400 shadow-md shadow-[#00000077]">
-									<Image
-										src={"/avatar-image1.png"}
-										alt="avatar-image"
-										width={50}
-										height={50}
-										className="w-full"
-									/>
+					>
+						{/* chats container */}
+						<div className="absolute h-full w-full max-md:flex max-md:flex-col gap-8 p-2">
+							{/* chat card */}
+							<div className="md:w-56 max-h-32 md:absolute md:top-7 md:right-40 flex gap-2 shadow-md ring-1 ring-gray-100 bg-gray-100 rounded-lg">
+								<div className="p-2">
+									<div className="w-10 h-10 rounded-full overflow-hidden ring-1 ring-gray-400 shadow-md shadow-[#00000077]">
+										<Image
+											src={"/avatar-image1.png"}
+											alt="avatar-image"
+											width={50}
+											height={50}
+											className="w-full"
+										/>
+									</div>
+								</div>
+								<div className="w-full p-1 text-start overflow-hidden">
+									Rewrite this email draft to make it more
+									clear and concise
 								</div>
 							</div>
-							<div className="w-full max-h-[10rem] p-1 text-start truncate whitespace-normal">
-								Rewrite this email draft to make it more clear
-								and concise
-							</div>
-						</div>
 
-						<div className="flex items-start justify-stretch shadow-md ring-1 ring-gray-100 bg-gray-100 rounded-lg  ml-14">
-							<div className="w-full max-h-[12rem] p-1 text-start truncate whitespace-normal">
-								Sure, here is a more clear and concise version
-								of your email draft: Dear Professor [Professor’s
-								name], Congratulations on your Teaching
-								Excellence Award! I am so...
-							</div>
+							{/* chat card */}
+							<div className="md:w-64 max-h-32 md:absolute md:-bottom-8  md:-right-14 flex gap-2 shadow-md ring-1 ring-gray-100 bg-gray-100 rounded-lg">
+								<div className="w-full p-1 overflow-hidden">
+									Sure, here is a more clear and concise
+									version of your email draft: Dear Professor
+									[Professor’s name], Congratulations on your
+									Teaching Excellence Award! I am so...
+								</div>
 
-							<div className="p-2">
-								<div className="w-12 h-12 rounded-full overflow-hidden ring-1 ring-gray-400 shadow-md shadow-[#00000077]">
-									<Image
-										src={"/logo.jpeg"}
-										alt="avatar-image"
-										width={50}
-										height={50}
-										className="w-full"
-									/>
+								<div className="p-2">
+									<div className="w-10 h-10 rounded-full overflow-hidden ring-1 ring-gray-400 shadow-md shadow-[#00000077]">
+										<Image
+											src={"/logo.jpeg"}
+											alt="avatar-image"
+											width={50}
+											height={50}
+											className="w-full"
+										/>
+									</div>
 								</div>
 							</div>
 						</div>
