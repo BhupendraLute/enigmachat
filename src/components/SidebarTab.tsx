@@ -7,9 +7,15 @@ type SidebarTabPropsType = {
 	title: string;
 	onClickTab?: () => void;
 	action?: boolean;
+	isSidebarExpanded?: boolean;
 };
 
-const SidebarTab = ({ icon, title, action = false }: SidebarTabPropsType) => {
+const SidebarTab = ({
+	icon,
+	title,
+	action = false,
+	isSidebarExpanded = true,
+}: SidebarTabPropsType) => {
 	const menuRef = useRef<HTMLDivElement>(null);
 
 	const [isContentEditable, setIsContentEditable] = useState(false);
@@ -32,19 +38,27 @@ const SidebarTab = ({ icon, title, action = false }: SidebarTabPropsType) => {
 	const handleRename = () => {
 		// Implement logic to trigger onRename prop function (e.g., prompt for new name)
 		setIsActionMenuOpen(false);
-	  };
-	
-	  const handleDelete = () => {
+	};
+
+	const handleDelete = () => {
 		// Implement logic to trigger onDelete prop function (e.g., confirmation prompt)
-		setIsActionMenuOpen(false); 
-	  };
+		setIsActionMenuOpen(false);
+	};
 
 	return (
-		<li className="flex items-center gap-2 bg-gray-700 hover:bg-slate-600 py-1 px-2 rounded-full cursor-pointer transition-all duration-200 relative group">
-			<Image src={icon} alt="tab-icon" width={18} height={18} />{" "}
-			<span className="truncate" contentEditable={isContentEditable}>
-				{title}
-			</span>
+		<li className="flex items-center gap-2 hover:bg-slate-600 py-1 px-2 rounded-full cursor-pointer transition-all duration-200 relative group">
+			<Image
+				src={icon}
+				alt="tab-icon"
+				width={18}
+				height={18}
+				className="w-5 h-5"
+			/>{" "}
+			{isSidebarExpanded && (
+				<span className="truncate" contentEditable={isContentEditable}>
+					{title}
+				</span>
+			)}
 			{action && (
 				<>
 					<button
@@ -64,7 +78,10 @@ const SidebarTab = ({ icon, title, action = false }: SidebarTabPropsType) => {
 							className="p-2 absolute top-8 right-4 z-[2] flex flex-col gap-2 bg-gray-800 shadow-md rounded-md text-sm"
 							ref={menuRef}
 						>
-							<button className="py-1 px-4 hover:bg-gray-700 rounded flex items-center justify-between gap-1" onClick={handleRename}>
+							<button
+								className="py-1 px-4 hover:bg-gray-700 rounded flex items-center justify-between gap-1"
+								onClick={handleRename}
+							>
 								Rename{" "}
 								<Image
 									src={"/svg/rename.svg"}
@@ -74,7 +91,10 @@ const SidebarTab = ({ icon, title, action = false }: SidebarTabPropsType) => {
 								/>
 							</button>
 
-							<button className="py-1 px-4 hover:bg-gray-700 rounded flex items-center justify-between gap-1" onClick={handleDelete}>
+							<button
+								className="py-1 px-4 hover:bg-gray-700 rounded flex items-center justify-between gap-1"
+								onClick={handleDelete}
+							>
 								Delete{" "}
 								<Image
 									src={"/svg/delete.svg"}
