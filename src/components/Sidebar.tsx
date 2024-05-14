@@ -1,20 +1,26 @@
+"use client";
 import Image from "next/image";
 import SidebarTab from "./SidebarTab";
 
 const Sidebar = () => {
 	return (
-		<aside className="relative hidden md:w-fit lg:w-60 md:block bg-gray-800 text-white">
+		<aside
+			id="sidebar"
+			className="hidden md:w-fit lg:w-60 md:block bg-gray-800 text-white"
+		>
 			<section className="p-2">
-				<div className="w-fit p-2 bg-gray-700 rounded-full shadow shadow-black cursor-pointer">
+				<div className="w-fit flex items-center gap-1 overflow-hidden cursor-pointer">
 					<Image
-						src={"/svg/menu-icon.svg"}
+						src={"/logo.jpeg"}
 						alt="menu-icon"
-						width={28}
-						height={28}
+						width={40}
+						height={40}
+						className="rounded-full"
 					/>
+					<span className="max-md:hidden px-2 py-1">EnigmaChat</span>
 				</div>
 
-				<div className="w-fit p-2 mt-8 flex items-center gap-2 bg-gray-700 rounded-full shadow shadow-black cursor-pointer">
+				<div className="w-fit p-2 mt-8 flex items-center gap-2 bg-gray-700 hover:bg-gray-600 rounded-full shadow shadow-black cursor-pointer transition-all duration-75">
 					<Image
 						src={"/svg/plus.svg"}
 						alt="menu-icon"
@@ -34,54 +40,13 @@ const Sidebar = () => {
 							title={"Fisrt ChatChatChatChat"}
 							action={true}
 						/>
-						<SidebarTab
-							icon={"/svg/chat.svg"}
-							title={"Fisrt ChatChatChatChat"}
-							action={true}
-						/>
-						<SidebarTab
-							icon={"/svg/chat.svg"}
-							title={"Fisrt ChatChatChatChat"}
-							action={true}
-						/>
-						<SidebarTab
-							icon={"/svg/chat.svg"}
-							title={"Fisrt ChatChatChatChat"}
-							action={true}
-						/>
-						<SidebarTab
-							icon={"/svg/chat.svg"}
-							title={"Fisrt ChatChatChatChat"}
-							action={true}
-						/>
-						<SidebarTab
-							icon={"/svg/chat.svg"}
-							title={"Fisrt ChatChatChatChat"}
-							action={true}
-						/>
-						<SidebarTab
-							icon={"/svg/chat.svg"}
-							title={"Fisrt ChatChatChatChat"}
-							action={true}
-						/>
-						<SidebarTab
-							icon={"/svg/chat.svg"}
-							title={"Fisrt ChatChatChatChat"}
-							action={true}
-						/>
 					</ul>
 				</div>
 
 				<div className="py-4 px-1">
 					<ul className="py-2 px-1 flex flex-col gap-2 ">
-						<SidebarTab
-							icon={"/svg/help.svg"}
-							title={"Help"}
-						/>
-						<SidebarTab
-							icon={"/svg/bell.svg"}
-							title={"Activity"}
-						/>
+						<SidebarTab icon={"/svg/help.svg"} title={"Help"} />
+						<SidebarTab icon={"/svg/bell.svg"} title={"Activity"} />
 						<SidebarTab
 							icon={"/svg/setting.svg"}
 							title={"Settings"}
