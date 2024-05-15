@@ -1,8 +1,11 @@
+import Navbar from '@/components/Navbar'
 import React from 'react'
 
 const ChatPage = () => {
   return (
-    <div>page</div>
+    <section>
+      Chat Page
+    </section>
   )
 }
 

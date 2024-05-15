@@ -14,7 +14,7 @@ const Sidebar = () => {
 	return (
 		<aside
 			id="sidebar"
-			className="hidden md:w-fit max-w-[15rem] md:block bg-gray-800 text-white transition-all duration-500"
+			className="hidden md:w-fit max-w-[15rem] md:block bg-gray-800 text-white transition-all duration-500 border-r-2 border-gray-500"
 		>
 			<section className="p-2">
 				<button

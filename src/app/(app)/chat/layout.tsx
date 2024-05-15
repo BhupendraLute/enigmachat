@@ -1,4 +1,6 @@
+import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
+import { Fragment } from "react";
 
 export default function RootLayout({
 	children,
@@ -8,7 +10,10 @@ export default function RootLayout({
 	return (
 		<div className="w-full h-screen flex relative">
 			<Sidebar />
-			<main className="flex-grow bg-gray-100 p-4">{children}</main>
+			<main className="flex-grow bg-gray-800 text-white">
+				<Navbar />
+				<Fragment>{children}</Fragment>
+			</main>
 		</div>
 	);
 }
