@@ -1,10 +1,18 @@
+'use client'
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const ActionButton = ({ id }: { id: string }) => {
 	const menuRef = useRef<HTMLDivElement>(null);
 
 	const [isActionMenuOpen, setIsActionMenuOpen] = useState(false);
+
+	const handleClickOutside = (event: any) => {
+		if (menuRef.current && !menuRef.current.contains(event.target)) {
+			setIsActionMenuOpen(false);
+		}
+	};
+
 
 	const handleRename = () => {
 		// Implement logic to trigger onRename prop function (e.g., prompt for new name)
@@ -15,6 +23,15 @@ const ActionButton = ({ id }: { id: string }) => {
 		// Implement logic to trigger onDelete prop function (e.g., confirmation prompt)
 		setIsActionMenuOpen(false);
 	};
+
+	// handle clicks on html document
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+
+		return () =>
+			document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+
 	return (
 		<div className="relative">
 			<button

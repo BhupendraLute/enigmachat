@@ -44,3 +44,30 @@ li {
 .btn-primary {
   @apply font-semibold text-white bg-blue-600 hover:bg-blue-500 py-2 px-4 transition-all duration-150
 }
+
+.loader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.loader hr {
+  border-radius: 4px;
+  border: none;
+  background-color: #f6f7f8;
+  background: linear-gradient(to right, #9ed7ff, #ffffff, #9ed7ff);
+  background-size: 80px 50px;
+  background-repeat: repeat;
+  height: 20px;
+  animation: loader 3s infinite linear;
+}
+
+@keyframes loader {
+  0% {
+    background-position: -800px 0px;
+  }
+  100% {
+    background-position: 800px 0px;
+  }
+}
