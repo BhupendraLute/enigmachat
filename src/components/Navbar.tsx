@@ -1,15 +1,30 @@
 "use client";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import cn from "clsx";
 import ActionButton from "./ActionButton";
 import { usePathname } from "next/navigation";
+import { getProviders, signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
+
+	const { data: session } = useSession();
+	const [providers, setProviders] = useState(null);
+
 	const pathname = usePathname();
 	const isChatPage = pathname.startsWith("/chat/");
 
 	const [isActionMenuOpen, setIsActionMenuOpen] = useState(false);
+
+	useEffect(() => {
+		const setUpProviders = async () => {
+			const response: any = await getProviders();
+
+			setProviders(response);
+		};
+
+		setUpProviders();
+	}, []);
 
 	const handleRename = () => {
 		// Implement logic to trigger onRename prop function (e.g., prompt for new name)
@@ -70,16 +85,27 @@ const Navbar = () => {
 					{isChatPage && <ActionButton id={""} />}
 
 					{/* User Profile button */}
-					<button className="p-1">
-						<Image
-							src={"/logo.jpeg"}
-							alt="menu-icon"
-							width={22}
-							height={22}
-							priority
-							className="rounded-full w-[36px] h-[36px]"
-						/>
-					</button>
+					{session?.user && (
+						<div className="flex gap-3 md:gap-5">
+							<button
+								className="btn-primary rounded-full"
+								type="button"
+								onClick={() => signOut()}
+							>
+								Logout
+							</button>
+
+							<div className="cursor-pointer border-2 border-white rounded-full overflow-hidden">
+								<Image
+									src={session?.user.image!}
+									alt="Profile Image"
+									width={37}
+									height={37}
+									className="rounded-full"
+								/>
+							</div>
+						</div>
+					)}
 				</div>
 			</div>
 		</nav>

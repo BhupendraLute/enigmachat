@@ -12,17 +12,8 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<Provider store={store}>
-			<SessionProvider>
-				<div className="w-full h-screen flex relative">
-					<Sidebar />
-
-					<main className="flex-grow bg-gray-800 text-white">
-						<Navbar />
-						<Fragment>{children}</Fragment>
-					</main>
-				</div>
-			</SessionProvider>
-		</Provider>
+		<SessionProvider>
+			<Fragment>{children}</Fragment>
+		</SessionProvider>
 	);
 }
