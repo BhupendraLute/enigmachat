@@ -1,9 +1,11 @@
+import Chat from "@/models/Chat";
 import { createSlice } from "@reduxjs/toolkit";
 
 // Define a type for the slice state
 interface ChatState {
 	chats: [
 		{
+			title: string;
 			prompt: string;
 			response: string;
 		}
@@ -14,6 +16,7 @@ interface ChatState {
 const initialState: ChatState = {
 	chats: [
 		{
+			title: "",
 			prompt: "",
 			response: "",
 		},
