@@ -1,13 +1,11 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import cn from "clsx";
 import ActionButton from "./ActionButton";
 import { usePathname } from "next/navigation";
 import { getProviders, signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
-
 	const { data: session } = useSession();
 	const [providers, setProviders] = useState(null);
 
@@ -25,6 +23,10 @@ const Navbar = () => {
 
 		setUpProviders();
 	}, []);
+
+	const handleLogout = () => {
+		signOut();
+	};
 
 	const handleRename = () => {
 		// Implement logic to trigger onRename prop function (e.g., prompt for new name)
@@ -90,7 +92,7 @@ const Navbar = () => {
 							<button
 								className="btn-primary rounded-full"
 								type="button"
-								onClick={() => signOut()}
+								onClick={() => handleLogout()}
 							>
 								Logout
 							</button>

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 
 export const store = configureStore({
   reducer: {
-    chat: chatReducer,
+    chats: chatReducer,
     initialPrompt: promptReducer
   },
 });

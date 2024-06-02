@@ -2,34 +2,29 @@ import Chat from "@/models/Chat";
 import User from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "next-auth/react";
+import getGeminiResponse from "@/config/gemini-config";
+import { NextApiResponse } from "next";
 
-export async function POST(request: NextRequest) {
-	const { title, prompt, response, userId } = await request.json();
+export async function POST(request: NextRequest, response : NextApiResponse) {
+	const { title, prompt, userId } = await request.json();
 
-	if (!title || !prompt || !response || !userId) {
-		return NextResponse.json({
+	if (!title || !prompt || !userId) {
+		return response.status(400).json({
 			status: 400,
 			error: "Failed to create new chat. Someting is missing",
 		});
 	}
 
 	try {
-		const user = await User.findById(userId);
-
-		if (!user) {
-			return NextResponse.json({
-				status: 404,
-				message: `User with userid ${userId} is not found`,
-			});
-		}
+		const chatResponse = await getGeminiResponse(prompt.trim());
 
 		const newChat = await Chat.create({
 			title,
 			chat: {
 				prompt,
-				response,
+				response: chatResponse,
 			},
-			createdBy: user._id,
+			createdBy: userId,
 		});
 
 		return NextResponse.json({
@@ -38,14 +33,14 @@ export async function POST(request: NextRequest) {
 			data: newChat,
 		});
 	} catch (error) {
-		return NextResponse.json({
+		return response.status(500).json({
 			status: 500,
 			error: "Failed to create new chat",
 		});
 	}
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, response: NextApiResponse) {
 	const session = await getSession();
 	const userEmail = session?.user?.email;
 
@@ -53,7 +48,7 @@ export async function GET(request: NextRequest) {
 		const user = await User.findOne({ email: userEmail });
 
 		if (!user) {
-			return NextResponse.json({
+			return response.status(404).json({
 				status: 404,
 				error: "session user not found",
 			});
@@ -62,14 +57,14 @@ export async function GET(request: NextRequest) {
 		const chats = user.chats;
 
 		if (!chats) {
-			return NextResponse.json({
+			return response.status(404).json({
 				status: 404,
 				error: "Failed to get chats",
 			});
 		}
 
 		if (chats.length <= 0) {
-			return NextResponse.json({
+			return response.status(404).json({
 				status: 404,
 				error: "Chats are not available or empty",
 			});
@@ -80,5 +75,12 @@ export async function GET(request: NextRequest) {
 			message: "successfully fetched all the chats",
 			data: { chats },
 		});
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+		
+		return response.status(500).json({
+			status: 500,
+			error: "Somenting went worng. try again",
+		});
+	}
 }

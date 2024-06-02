@@ -3,37 +3,36 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // Define a type for the slice state
 interface ChatState {
-	chats: [
-		{
-			title: string;
-			prompt: string;
-			response: string;
-		}
-	];
+	title: string;
+	chats: [];
 }
 
 // Define the initial state using that type
 const initialState: ChatState = {
-	chats: [
-		{
-			title: "",
-			prompt: "",
-			response: "",
-		},
-	],
+	title: "",
+	chats: [],
 };
 
-export const ChatSclice = createSlice({
-	name: "chat",
+export const ChatSlice = createSlice({
+	name: "chats",
 	initialState,
 	reducers: {
+		createChat: (state, { payload }) => {
+			state.title = payload.title;
+			state.chats.push(payload.chat[0]);
+		},
 		addChat: (state, { payload }) => {
-			const newChat = payload;
-			state.chats.unshift(newChat);
+			state.chats.push(payload);
+		},
+		deleteChat: (state) => {
+			return {
+				title: "",
+				chats: [],
+			};
 		},
 	},
 });
 
-export const { addChat } = ChatSclice.actions;
+export const { createChat, addChat, deleteChat } = ChatSlice.actions;
 
-export default ChatSclice.reducer;
+export default ChatSlice.reducer;
