@@ -9,13 +9,7 @@ export const UserSchema = new Schema({
     username: {
         type: String,
         required: [true, 'Username is required!']
-    },
-    chats: [
-        {
-           type: Schema.Types.ObjectId,
-           ref: "Chat",
-        },
-     ]
+    }
 })
 
 const User = models.User || model('User', UserSchema)

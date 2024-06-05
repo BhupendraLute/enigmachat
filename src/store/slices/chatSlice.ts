@@ -5,12 +5,14 @@ import { createSlice } from "@reduxjs/toolkit";
 interface ChatState {
 	title: string;
 	chats: [];
+	createdby: string;
 }
 
 // Define the initial state using that type
 const initialState: ChatState = {
 	title: "",
 	chats: [],
+	createdby: "",
 };
 
 export const ChatSlice = createSlice({
@@ -19,20 +21,28 @@ export const ChatSlice = createSlice({
 	reducers: {
 		createChat: (state, { payload }) => {
 			state.title = payload.title;
-			state.chats.push(payload.chat[0]);
+
+			const chat = payload?.chat;
+			state.chats = chat;
+
+			state.createdby = payload.createdby;
 		},
-		addChat: (state, { payload }) => {
-			state.chats.push(payload);
+		addConversation: (state, { payload }) => {
+			const chat = payload?.chat;
+			if (chat) {
+				state.chats = chat;
+			}
 		},
 		deleteChat: (state) => {
 			return {
 				title: "",
 				chats: [],
+				createdby: "",
 			};
 		},
 	},
 });
 
-export const { createChat, addChat, deleteChat } = ChatSlice.actions;
+export const { createChat, addConversation, deleteChat } = ChatSlice.actions;
 
 export default ChatSlice.reducer;

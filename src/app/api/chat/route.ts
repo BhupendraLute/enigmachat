@@ -5,11 +5,11 @@ import { getSession } from "next-auth/react";
 import getGeminiResponse from "@/config/gemini-config";
 import { NextApiResponse } from "next";
 
-export async function POST(request: NextRequest, response : NextApiResponse) {
+export async function POST(request: NextRequest, response: NextApiResponse) {
 	const { title, prompt, userId } = await request.json();
 
 	if (!title || !prompt || !userId) {
-		return response.status(400).json({
+		return NextResponse.json({
 			status: 400,
 			error: "Failed to create new chat. Someting is missing",
 		});
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest, response : NextApiResponse) {
 				prompt,
 				response: chatResponse,
 			},
-			createdBy: userId,
+			createdby: userId,
 		});
 
 		return NextResponse.json({
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest, response : NextApiResponse) {
 			data: newChat,
 		});
 	} catch (error) {
-		return response.status(500).json({
+		return NextResponse.json({
 			status: 500,
 			error: "Failed to create new chat",
 		});
@@ -41,30 +41,31 @@ export async function POST(request: NextRequest, response : NextApiResponse) {
 }
 
 export async function GET(request: NextRequest, response: NextApiResponse) {
-	const session = await getSession();
-	const userEmail = session?.user?.email;
+
+	console.log(request)
+	const userId = "54654646"
 
 	try {
-		const user = await User.findOne({ email: userEmail });
+		const user = await User.findById({ _id: userId });
 
 		if (!user) {
-			return response.status(404).json({
+			return NextResponse.json({
 				status: 404,
-				error: "session user not found",
+				error: "user not found",
 			});
 		}
 
 		const chats = user.chats;
 
 		if (!chats) {
-			return response.status(404).json({
+			return NextResponse.json({
 				status: 404,
 				error: "Failed to get chats",
 			});
 		}
 
 		if (chats.length <= 0) {
-			return response.status(404).json({
+			return NextResponse.json({
 				status: 404,
 				error: "Chats are not available or empty",
 			});
@@ -77,8 +78,8 @@ export async function GET(request: NextRequest, response: NextApiResponse) {
 		});
 	} catch (error) {
 		console.log(error);
-		
-		return response.status(500).json({
+
+		return NextResponse.json({
 			status: 500,
 			error: "Somenting went worng. try again",
 		});

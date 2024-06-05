@@ -70,7 +70,7 @@ async function getGeminiResponse(prompt : string) {
   console.log(finalResponseText);
   
 
-  return finalResponseText;
+  return responseText;
 }
 
 export default getGeminiResponse;
