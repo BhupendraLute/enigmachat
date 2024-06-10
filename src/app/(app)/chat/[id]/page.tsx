@@ -5,9 +5,9 @@ import {
 	deleteChat,
 } from "@/store/slices/chatSlice";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/store";
-import { addConversationInChat, createNewChat, getChat } from "@/util/createChat";
+import { addConversationInChat, getChat } from "@/utils/createChat";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import InputPrompt from "@/components/InputPrompt";
@@ -20,8 +20,9 @@ const ChatIdPage = () => {
 	const userImage = session?.user?.image;
 
 	const [prompt, setPrompt] = useState("");
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 
+	const [scrollToBottom, setScrollToBottom] = useState(false);
 
 	const dispatch = useAppDispatch();
 
@@ -31,75 +32,95 @@ const ChatIdPage = () => {
 	const chats = storeChats.chats;
 
 	useEffect(() => {
+		if (scrollToBottom) {
+			const chatWindow = document.getElementById("chat-window");
+			if (chatWindow) {
+				chatWindow.scrollTop = chatWindow.scrollHeight;
+			}
+		}
+	}, [scrollToBottom]);
+
+	useEffect(() => {
 		try {
-			setLoading(true)
+			setLoading(true);
+			setScrollToBottom(true);
 			const recoverChat = async () => {
 				const recoverdChat = await getChat(id);
-				const { chatData, successMessage, errorMessage }: any = recoverdChat;
-					dispatch(deleteChat());
-					dispatch(createChat(chatData));
-				
+				const { chatData, successMessage, errorMessage }: any =
+					recoverdChat;
+				dispatch(deleteChat());
+				dispatch(createChat(chatData));
 			};
-			recoverChat()
+			recoverChat();
 		} catch (error) {
 			console.log(error);
-			
-		}finally{
-			setLoading(false)
+		} finally {
+			setLoading(false);
+			setScrollToBottom(false);
 		}
 	}, []);
 
-	const handleSend =async () => {
-		setPrompt("")
-		const recoverdChat = await addConversationInChat(prompt, id);
-		const { chatData, successMessage, errorMessage }: any = recoverdChat;
-		
-		dispatch(addConversation(chatData));
-	};
+	const handleSend = async () => {
+		try {
+			setLoading(true);
+			setPrompt("");
+			setScrollToBottom(true);
+			const updateddChat = await addConversationInChat(prompt, id);
+			const { chatData, successMessage, errorMessage }: any =
+				updateddChat;
 
+			dispatch(addConversation(chatData));
+		} catch (error) {
+		} finally {
+			setLoading(false);
+			setScrollToBottom(false);
+		}
+	};
 
 	return (
 		<section className="relative mt-4 mx-3 md:mt-6 flex flex-col gap-4 items-center">
-			<div className="p-4 w-full md:w-[65%] bg-gray-700 overflow-y-scroll h-[calc(100vh-12rem)] rounded-lg custom-scrollbar">
+			<div
+				id="chat-window"
+				className="max-md:p-1 p-4 w-full md:w-[85%] lg:w-[75%] bg-gray-700 overflow-y-scroll h-[calc(100vh-12rem)] rounded-lg custom-scrollbar"
+			>
 				{chats.map(
 					(chat: { prompt: string; response: string }, index) => (
-						<div
-							key={index}
-							className="mb-2"
-						>
-							<div className="p-2 mr-8 flex justify-end gap-2">
-								<div className="p-2 text-sm border border-gray-400 rounded-md">
+						<div key={index} className="mb-2">
+							<div className="p-2 flex justify-end gap-2">
+								<div className="max-w-[85%] bg-[#49244e] px-4 py-2 text-sm border border-gray-400 rounded-md">
 									<p>{chat.prompt}</p>
 								</div>
-								<div className="w-10 rounded-full overflow-hidden">
+								<div className="w-[28px] rounded-full overflow-hidden">
 									<Image
-										src={"/logo.jpeg"}
+										src={userImage!}
 										alt="user-image"
-										width={50}
-										height={50}
+										width={20}
+										height={20}
 										className="w-full rounded-full"
 									/>
 								</div>
 							</div>
 
-							<div className="p-2 mr-8 flex justify-start gap-2">
-								<div className="w-10 rounded-full overflow-hidden">
+							<div className="p-2 flex justify-start gap-2">
+								<div className="w-[28px] rounded-full overflow-hidden">
 									<Image
-										src={userImage!}
+										src={"/logo.jpeg"}
 										alt="user-image"
-										width={50}
-										height={50}
-										className="w-10 rounded-full"
+										width={20}
+										height={20}
+										className="w-full rounded-full"
 									/>
 								</div>
-								<div className="p-2 text-sm border border-gray-400 rounded-md">
+								<div className="bg-[#251e59] max-w-[85%] px-4 py-2 text-sm border border-gray-400 rounded-md">
 									{/* <p
 										dangerouslySetInnerHTML={{
 											__html: chat.response,
 										}}
 									></p> */}
 									<Markdown
-										className={"leading-relaxed"}
+										className={
+											"leading-relaxed text-gray-200"
+										}
 										remarkPlugins={[remarkGfm]}
 									>
 										{chat.response}

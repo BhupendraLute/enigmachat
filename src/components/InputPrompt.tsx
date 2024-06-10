@@ -26,7 +26,7 @@ const InputPrompt = ({
 			<input
 				value={value}
 				onChange={onChange}
-				className="outline-none focus-visible:outline-none bg-transparent max-h-64 min-h-fit w-full"
+				className="outline-none focus-visible:outline-none bg-transparent min-h-fit w-full"
 				aria-label="Enter a prompt here"
 				placeholder="Enter a prompt here"
 			/>

@@ -66,7 +66,7 @@ export default function Home() {
 										type="button"
 										key={provider.name}
 										onClick={() => signIn(provider.id)}
-										className="btn-primary rounded-full shadow-lg shadow-blue-400 hover:shadow-sm"
+										className="btn-primary py-2 px-4 rounded-full shadow-lg shadow-blue-400 hover:shadow-sm"
 									>
 										Sign In
 									</button>

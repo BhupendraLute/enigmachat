@@ -42,70 +42,66 @@ const Navbar = () => {
 		<nav className="w-full py-2 px-4 md:px-6 bg-gray-800 text-white">
 			<div className="w-full flex justify-between items-center">
 				{/* Left nav */}
-				<div className="flex items-center gap-6">
+				<div className="flex items-center gap-2">
 					{/* Hamburger */}
-					<button className="md:hidden w-fit flex items-center gap-1 overflow-hidden cursor-pointer bg-gray-700 rounded-full shadow-sm p-1">
+					<button className="md:hidden w-8 h-8 flex items-center gap-1 overflow-hidden cursor-pointer bg-gray-700 rounded-full shadow-sm p-1">
 						<Image
 							src={"/svg/menu-icon.svg"}
 							alt="menu-icon"
 							width={16}
 							height={16}
 							priority
-							className="rounded-full w-[26px] h-[26px]"
+							className="rounded-full w-full h-full"
 						/>
 					</button>
 
 					{/* Logo */}
-					<h1 className="p-1 flex items-center gap-2">
+					<h1 className="max-md:hidden p-1 flex items-center gap-2">
 						<Image
 							src={"/logo.jpeg"}
 							alt="menu-icon"
 							width={22}
 							height={22}
 							priority
-							className="rounded-full w-[36px] h-[36px]"
+							className="rounded-full w-[32px] h-[32px]"
 						/>
-						<span className="max-md:hidden">EnigmaChat</span>
+						<span className="text-gray-100">EnigmaChat</span>
 					</h1>
 				</div>
 
 				{/* Right nav */}
 				<div className="flex items-center gap-4 pr-1">
 					{/* New chat button */}
-					<button className="md:hidden hover:bg-gray-600 rounded-full p-1">
+					<button className="w-6 h-6 p-[2px] md:hidden flex items-center justify-start gap-2 bg-gray-700 rounded-full text-base">
 						<Image
 							src={"/svg/plus.svg"}
-							alt="menu-icon"
-							width={22}
-							height={22}
-							priority
-							className="rounded-full w-[24px] h-[24px]"
+							alt="new-chat-icon"
+							width={12}
+							height={12}
+							className="w-full h-full"
 						/>
 					</button>
-
-					{/* Chat action Button */}
-					{isChatPage && <ActionButton id={""} />}
 
 					{/* User Profile button */}
 					{session?.user && (
 						<div className="flex gap-3 md:gap-5">
 							<button
-								className="btn-primary rounded-full"
+								className="btn-primary rounded-full text-sm px-2 py-1"
 								type="button"
 								onClick={() => handleLogout()}
 							>
 								Logout
 							</button>
 
-							<div className="cursor-pointer border-2 border-white rounded-full overflow-hidden">
+							<button className="w-8 h-8 cursor-pointer border-2 border-white rounded-full overflow-hidden">
 								<Image
 									src={session?.user.image!}
 									alt="Profile Image"
 									width={37}
 									height={37}
-									className="rounded-full"
+									className="rounded-full w-full h-full"
 								/>
-							</div>
+							</button>
 						</div>
 					)}
 				</div>

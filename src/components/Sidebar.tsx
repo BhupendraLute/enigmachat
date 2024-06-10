@@ -3,6 +3,7 @@ import Image from "next/image";
 import SidebarTab from "./SidebarTab";
 import { useState } from "react";
 import cn from "clsx";
+import Link from "next/link";
 
 const Sidebar = () => {
 	const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
@@ -14,11 +15,11 @@ const Sidebar = () => {
 	return (
 		<aside
 			id="sidebar"
-			className="hidden md:w-fit max-w-[15rem] md:block bg-gray-800 text-white transition-all duration-500 border-r-2 border-gray-500"
+			className="hidden md:w-fit max-w-[14rem] md:block bg-gray-800 text-white transition-all duration-500 border-r-2 border-gray-500"
 		>
 			<section className="p-2">
 				<button
-					className="w-fit flex items-center gap-1 overflow-hidden cursor-pointer bg-gray-700 rounded-full shadow-sm p-2"
+					className="w-[32px] flex items-center gap-1 overflow-hidden cursor-pointer bg-gray-700 rounded-full shadow-sm p-2"
 					onClick={handleHamburger}
 				>
 					<Image
@@ -27,45 +28,60 @@ const Sidebar = () => {
 						width={22}
 						height={22}
 						priority
-						className="rounded-full"
+						className="rounded-full w-full"
 					/>
 				</button>
 
-				<button className="w-fit p-2 mt-8 flex items-center gap-2 bg-gray-700 hover:bg-gray-600 rounded-full shadow shadow-black cursor-pointer transition-all duration-75">
+				<Link
+					href={"/chat"}
+					className={cn(
+						"w-fit px-2 mt-12 flex items-center justify-start gap-2 bg-gray-700 hover:bg-gray-600 rounded-full cursor-pointer transition-[width] duration-75 text-base",
+						{
+							"py-2": !isSidebarExpanded,
+							"py-1": isSidebarExpanded,
+						}
+					)}
+				>
 					<Image
 						src={"/svg/plus.svg"}
-						alt="menu-icon"
-						width={18}
-						height={18}
+						alt="new-chat-icon"
+						width={12}
+						height={12}
+						className="w-[16px] h-[16px] rounded-full"
 					/>
 					<span
-						className={cn("px-2 cursor-pointer", {
+						className={cn("px-2 cursor-pointer text-base", {
 							hidden: !isSidebarExpanded,
 							flex: isSidebarExpanded,
 						})}
 					>
 						New Chat
 					</span>
-				</button>
+				</Link>
 
-				<div
-					className={cn("flex-col mt-8", {
-						hidden: !isSidebarExpanded,
-						flex: isSidebarExpanded,
-					})}
-				>
-					<h3 className="text-xl font-semibold">Recents</h3>
-					<ul className="mt-2 ml-4 py-2 px-1 flex flex-col gap-2 h-[48vh] overflow-y-scroll custom-scrollbar">
-						<SidebarTab
-							icon={"/svg/chat.svg"}
-							title={"Fisrt ChatChatChatChat"}
-							action={true}
-						/>
-					</ul>
+				<div className="h-full">
+					<div
+						className={cn("flex-col mt-8", {
+							hidden: !isSidebarExpanded,
+							flex: isSidebarExpanded,
+						})}
+					>
+						<h3 className="text-xl font-semibold">Recents</h3>
+						<ul className="mt-2 ml-2 py-2 px-1 flex flex-col gap-2 text-base h-full max-h-[45vh] overflow-y-scroll custom-scrollbar">
+							{[1, 2, 3, 4, 5, 6, 7, 8, 9,15,8547,8,7,987,9,79,7,9,7,97,,9].map((item, index) => (
+								<li className="w-full rounded-md px-1">
+									<SidebarTab
+										icon={"/svg/chat.svg"}
+										title={"Fisrt ChatChatChatChat"}
+									/>
+								</li>
+							))}
+						</ul>
+					</div>
 				</div>
 
-				<div className="absolute bottom-1 py-4">
-					<ul className="py-2 px-1 flex flex-col gap-2 ">
+				<div className="absolute bottom-1 py-2">
+					<ul className="w-full py-1 flex flex-col gap-2 ">
 						<SidebarTab
 							icon={"/svg/help.svg"}
 							title={"Help"}

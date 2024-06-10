@@ -67,7 +67,7 @@ async function getGeminiResponse(prompt : string) {
   }
 
   let finalResponseText = newResponseText.split('*').join('<br />')
-  console.log(finalResponseText);
+  // console.log(finalResponseText);
   
 
   return responseText;

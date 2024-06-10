@@ -13,17 +13,17 @@ type SidebarTabPropsType = {
 const SidebarTab = ({
 	icon,
 	title,
-	action = false,
 	isSidebarExpanded = true,
 }: SidebarTabPropsType) => {
 	
 	return (
-		<li className="flex items-center gap-2 hover:bg-slate-600 py-1 px-2 rounded-full cursor-pointer transition-all duration-200 relative group">
+
+		<button className="w-full flex justify-start items-center text-base gap-2 py-1 px-2  border border-gray-500 hover:bg-slate-600 rounded-full cursor-pointer">
 			<Image
 				src={icon}
 				alt="tab-icon"
-				width={18}
-				height={18}
+				width={16}
+				height={16}
 				className="w-5 h-5"
 			/>{" "}
 			{isSidebarExpanded && (
@@ -31,7 +31,8 @@ const SidebarTab = ({
 					{title}
 				</span>
 			)}
-		</li>
+		</button>
+		
 	);
 };
 
