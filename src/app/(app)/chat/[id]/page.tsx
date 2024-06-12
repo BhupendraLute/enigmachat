@@ -5,7 +5,7 @@ import {
 	deleteChat,
 } from "@/store/slices/chatSlice";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/store";
-import { addConversationInChat, getChat } from "@/utils/createChat";
+import { addConversationInChat, getChat } from "@/utils/chatActions";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -32,15 +32,6 @@ const ChatIdPage = () => {
 	const chats = storeChats.chats;
 
 	useEffect(() => {
-		if (scrollToBottom) {
-			const chatWindow = document.getElementById("chat-window");
-			if (chatWindow) {
-				chatWindow.scrollTop = chatWindow.scrollHeight;
-			}
-		}
-	}, [scrollToBottom]);
-
-	useEffect(() => {
 		try {
 			setLoading(true);
 			setScrollToBottom(true);
@@ -59,6 +50,17 @@ const ChatIdPage = () => {
 			setScrollToBottom(false);
 		}
 	}, []);
+
+
+	// Scroll down to the last chat
+	useEffect(() => {
+		if (scrollToBottom) {
+			const chatWindow = document.getElementById("chat-window");
+			if (chatWindow) {
+				chatWindow.scrollTop = chatWindow.scrollHeight;
+			}
+		}
+	}, [scrollToBottom]);
 
 	const handleSend = async () => {
 		try {

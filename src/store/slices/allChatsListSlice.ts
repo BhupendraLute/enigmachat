@@ -1,0 +1,46 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+// Define a type for the slice state
+interface ChatState {
+	chats: [];
+}
+
+// Define the initial state using that type
+const initialState: ChatState = {
+	chats: [],
+};
+
+export const AllChatsListSlice = createSlice({
+	name: "chatslist",
+	initialState,
+	reducers: {
+		setChatList: (state, { payload }) => {
+			if (payload) {
+				state.chats = payload.reverse();
+			}
+		},
+		deleteChatFromList: (state, { payload }) => {
+			const indexToDelete = state.chats.findIndex(
+				(obj) => obj._id == payload
+			);
+			if (indexToDelete !== -1) {
+				state.chats.splice(indexToDelete, 1); // Remove 1 element at the found index
+			}
+		},
+		renameChatfromList: (state, { payload }) => {
+			for (const chat of state.chats) {
+				if (chat._id === payload.id) {
+				  chat.title = payload.title; // Update age directly on the matching object
+				  break; 
+				}
+			  }
+		},
+		addNewChatToList: (state, {payload})=> {
+			state.chats.unshift(payload)
+		}
+	},
+});
+
+export const { setChatList, deleteChatFromList, renameChatfromList, addNewChatToList } = AllChatsListSlice.actions;
+
+export default AllChatsListSlice.reducer;

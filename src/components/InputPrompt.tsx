@@ -21,7 +21,7 @@ const InputPrompt = ({
 				e.preventDefault();
 				handleSubmit();
 			}}
-			className="w-full md:w-[80%] flex items-center justify-between gap-2 mx-auto border-2 border-gray-300 py-2 px-4 md:py-4 md:px-4 rounded-3xl"
+			className="w-[90%] md:w-[80%] flex items-center justify-between gap-2 mx-auto border-2 border-gray-300 py-2 px-4 md:py-4 md:px-4 rounded-3xl z-30"
 		>
 			<input
 				value={value}

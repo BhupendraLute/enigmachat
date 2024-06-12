@@ -1,9 +1,9 @@
 import getGeminiResponse from "@/config/gemini-config";
 import Chat from "@/models/Chat";
 import { NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
 import { NextRequest, NextResponse } from "next/server";
 
+// update existing chat chat
 export async function PATCH(request: NextRequest, response: NextApiResponse) {
 	const { prompt, chatId } = await request.json();
 
@@ -37,10 +37,7 @@ export async function PATCH(request: NextRequest, response: NextApiResponse) {
 				status: 200,
 				error: "Failed to update chat",
 			});
-		}
-
-		// console.log("Chat: ",chat);
-		
+		}		
 
 		chat.chat.push(newChat);
 
@@ -59,6 +56,7 @@ export async function PATCH(request: NextRequest, response: NextApiResponse) {
 	}
 }
 
+// get chat by id
 export async function GET(request: NextRequest, response: NextApiResponse) {
 	const url = request.headers.get("referer");
 	// console.log("url : ", request.headers.get('referer'))

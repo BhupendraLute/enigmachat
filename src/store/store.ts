@@ -3,10 +3,12 @@ import chatReducer from './slices/chatSlice';
 import { TypedUseSelectorHook } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import allChatsListReducer from './slices/allChatsListSlice';
 
 export const store = configureStore({
   reducer: {
     chats: chatReducer,
+    chatslist: allChatsListReducer,
   },
 });
 

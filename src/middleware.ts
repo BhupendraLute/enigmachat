@@ -7,22 +7,16 @@ export async function middleware(request: NextRequest) {
 	const token = await getToken({ req: request });
 	const url = request.nextUrl;
 
-	if (
-		token &&
-		url.pathname === "/"
-	) {
+	if (token && url.pathname === "/") {
 		return NextResponse.redirect(new URL("/chat", request.url));
 	}
 
 	if (
 		!token &&
-		// url.pathname.startsWith('/sign-in') ||
-		url.pathname === "/chat"
+		(url.pathname === "/chat" || url.pathname.startsWith("/chat/"))
 	) {
 		return NextResponse.redirect(new URL("/", request.url));
 	}
-
-	
 
 	return NextResponse.next();
 }
