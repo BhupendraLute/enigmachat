@@ -3,9 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import dbConnect from "@/config/dbConfig";
 import User from "@/models/User";
 
-export const config = {
-	maxDuration: 30,
-};
+export const maxDuration = 30;
 
 const handler = NextAuth({
 	providers: [
