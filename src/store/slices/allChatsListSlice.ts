@@ -21,26 +21,31 @@ export const AllChatsListSlice = createSlice({
 		},
 		deleteChatFromList: (state, { payload }) => {
 			const indexToDelete = state.chats.findIndex(
-				(obj) => obj._id == payload
+				(obj: any) => obj._id == payload
 			);
 			if (indexToDelete !== -1) {
 				state.chats.splice(indexToDelete, 1); // Remove 1 element at the found index
 			}
 		},
-		renameChatfromList: (state, { payload }) => {
+		renameChatfromList: (state: any, { payload }) => {
 			for (const chat of state.chats) {
 				if (chat._id === payload.id) {
-				  chat.title = payload.title; // Update age directly on the matching object
-				  break; 
+					chat.title = payload.title; // Update age directly on the matching object
+					break;
 				}
-			  }
+			}
 		},
-		addNewChatToList: (state, {payload})=> {
-			state.chats.unshift(payload)
-		}
+		addNewChatToList: (state: any, { payload }) => {
+			state.chats.unshift(payload);
+		},
 	},
 });
 
-export const { setChatList, deleteChatFromList, renameChatfromList, addNewChatToList } = AllChatsListSlice.actions;
+export const {
+	setChatList,
+	deleteChatFromList,
+	renameChatfromList,
+	addNewChatToList,
+} = AllChatsListSlice.actions;
 
 export default AllChatsListSlice.reducer;

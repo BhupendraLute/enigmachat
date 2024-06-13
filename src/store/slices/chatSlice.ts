@@ -19,7 +19,7 @@ export const ChatSlice = createSlice({
 	name: "chats",
 	initialState,
 	reducers: {
-		createChat: (state, { payload }) => {
+		createChat: (state: any, { payload }) => {
 			state.title = payload.title;
 
 			const chat = payload?.chat;
@@ -27,7 +27,7 @@ export const ChatSlice = createSlice({
 
 			state.createdby = payload.createdby;
 		},
-		addConversation: (state, { payload }) => {
+		addConversation: (state: any, { payload }) => {
 			const chat = payload?.chat;
 			if (chat) {
 				state.chats = chat;
