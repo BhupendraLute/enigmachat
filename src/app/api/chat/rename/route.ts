@@ -2,7 +2,6 @@ import Chat from "@/models/Chat";
 import { NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
-export const maxDuration = 30;
 
 // rename chat
 export async function PATCH(request: NextRequest, response: NextApiResponse) {
