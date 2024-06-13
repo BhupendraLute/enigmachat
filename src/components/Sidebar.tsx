@@ -15,7 +15,7 @@ const Sidebar = () => {
 
 	const dispatch = useAppDispatch();
 
-	const chatList = useAppSelector((state: RootState) => state.chatslist.chats);
+	const chatList : any = useAppSelector((state: RootState) => state.chatslist.chats);
 
 	const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
@@ -104,7 +104,7 @@ const Sidebar = () => {
 					>
 						<h3 className="text-xl font-semibold">Recent Chats</h3>
 						<ul className="mt-2 ml-2 py-2 flex flex-col gap-2 text-base h-full max-h-[45vh] overflow-y-scroll custom-scrollbar">
-							{chatList.length > 0 && chatList.map((item, index) => (
+							{chatList.length > 0 && chatList.map((item: any, index: any) => (
 								<li
 									key={index}
 									className="w-full rounded-md px-1"

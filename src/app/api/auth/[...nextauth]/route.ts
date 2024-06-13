@@ -18,7 +18,7 @@ const handler = NextAuth({
             })
 
 			if (session.user) {
-				session.user._id = sessionUser._id
+				session.user._id  = sessionUser._id
 			}
 
 			return session;
