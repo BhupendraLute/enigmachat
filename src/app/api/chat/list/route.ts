@@ -3,6 +3,7 @@ import User from "@/models/User";
 import { NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
+export const maxDuration = 30;
 
 // get all chats for current user
 export async function POST(request: NextRequest, response: NextApiResponse) {

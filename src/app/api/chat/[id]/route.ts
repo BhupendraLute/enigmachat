@@ -3,6 +3,8 @@ import Chat from "@/models/Chat";
 import { NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
+export const maxDuration = 30;
+
 // update existing chat chat
 export async function PATCH(request: NextRequest, response: NextApiResponse) {
 	const { prompt, chatId } = await request.json();

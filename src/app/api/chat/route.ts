@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import getGeminiResponse from "@/config/gemini-config";
 import { NextApiResponse } from "next";
 
+export const maxDuration = 30;
 
 // Create chat
 export async function POST(request: NextRequest, response: NextApiResponse) {
