@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { getProviders, signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -94,37 +95,19 @@ export default function Home() {
 					</p>
 				</div>
 				{session?.user ? (
-					<div className="flex">
-						<button
-							className="btn-primary rounded-full shadow-lg hover:shadow-sm"
-							type="button"
-							onClick={() => signOut()}
-						>
-							Logout
-						</button>
-
-						<div>
-							<Image
-								src={session?.user.image!}
-								alt="Profile Image"
-								width={37}
-								height={37}
-								className="rounded-full"
-							/>
-						</div>
-					</div>
+					null
 				) : (
 					<>
 						{providers &&
 							Object.values(providers).map((provider: any) => (
-								<button
+								<Button
 									type="button"
 									key={provider.name}
 									onClick={() => signIn(provider.id)}
-									className="btn-primary py-3 px-6 text-xl rounded-xl shadow-lg hover:shadow-sm"
+									className="btn-primary hover:bg-blue-800 py-3 px-6 text-xl"
 								>
 									Sign In
-								</button>
+								</Button>
 							))}
 					</>
 				)}

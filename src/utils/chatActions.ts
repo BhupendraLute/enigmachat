@@ -75,7 +75,7 @@ export const getAllChatsByUser = async () => {
 		const data = response.data;
 		const errorMessage = data?.error;
 		const successMessage = data?.message;
-		const chatData = data?.data;
+		const chatData = data?.data?.reverse();
 
 		return { chatData, successMessage, errorMessage };
 	} catch (error) {

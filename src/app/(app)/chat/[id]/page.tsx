@@ -83,13 +83,13 @@ const ChatIdPage = () => {
 		<section className="relative mt-4 mx-3 md:mt-6 flex flex-col gap-4 items-center">
 			<div
 				id="chat-window"
-				className="max-md:p-1 p-4 w-full md:w-[85%] lg:w-[75%] bg-gray-700 overflow-y-scroll h-[calc(100vh-12rem)] rounded-lg custom-scrollbar"
+				className="max-md:p-1 p-4 w-full md:w-[85%] lg:w-[75%] bg-gray-900 overflow-y-scroll h-[calc(100vh-12rem)] rounded-lg custom-scrollbar"
 			>
 				{chats.map(
 					(chat: { prompt: string; response: string }, index) => (
 						<div key={index} className="mb-2">
 							<div className="p-2 flex justify-end gap-2">
-								<div className="max-w-[85%] bg-[#49244e] px-4 py-2 text-sm border border-gray-400 rounded-md">
+								<div className="max-w-[85%] text-white px-4 py-2 border border-gray-400 rounded-md">
 									<p>{chat.prompt}</p>
 								</div>
 								<div className="w-[28px] rounded-full overflow-hidden">
@@ -113,7 +113,7 @@ const ChatIdPage = () => {
 										className="w-full rounded-full"
 									/>
 								</div>
-								<div className="bg-[#251e59] max-w-[85%] px-4 py-2 text-sm border border-gray-400 rounded-md">
+								<div className="bg-[#251e595d] max-w-[85%] px-4 py-2 border border-gray-400 rounded-md">
 									{/* <p
 										dangerouslySetInnerHTML={{
 											__html: chat.response,

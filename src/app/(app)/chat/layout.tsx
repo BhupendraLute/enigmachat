@@ -1,10 +1,10 @@
 "use client";
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
-import { Fragment } from "react";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
 import { SessionProvider } from "next-auth/react";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { ChatSidebar } from "@/components/ChatSidebar";
+import Navbar from "@/components/Navbar";
 
 export default function RootLayout({
 	children,
@@ -14,14 +14,13 @@ export default function RootLayout({
 	return (
 		<Provider store={store}>
 			<SessionProvider>
-				<div className="w-full h-screen flex relative">
-					<Sidebar />
-
-					<main className="flex-grow bg-gray-800 text-white">
-						<Navbar />
-						<Fragment>{children}</Fragment>
+				<SidebarProvider >
+					<ChatSidebar />
+					<main className="flex flex-col w-full h-screen">
+						<SidebarTrigger className="text-white w-8 m-2" />
+						{children}
 					</main>
-				</div>
+				</SidebarProvider>
 			</SessionProvider>
 		</Provider>
 	);

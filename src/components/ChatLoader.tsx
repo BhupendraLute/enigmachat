@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 const ChatLoader = ({ userImage }: { userImage: string }) => {
+	const userImg = userImage;
 	return (
 		<div className="w-full mb-2">
 			<div className="w-full p-2 mr-8 flex justify-end gap-2">
@@ -13,7 +14,7 @@ const ChatLoader = ({ userImage }: { userImage: string }) => {
 				</div>
 				<div className="w-8 rounded-full overflow-hidden flex items-center justify-center">
 					<Image
-						src={"/logo.jpeg"}
+						src={userImg! || "/user.png"}
 						alt="user-image"
 						width={20}
 						height={20}
@@ -25,8 +26,8 @@ const ChatLoader = ({ userImage }: { userImage: string }) => {
 			<div className="w-fullp-2 mr-8 flex justify-start gap-2">
 				<div className="w-8 rounded-full overflow-hidden flex items-center justify-center">
 					<Image
-						src={userImage!}
-						alt="user-image"
+						src={"/logo.jpeg"}
+						alt="logo"
 						width={20}
 						height={20}
 						className="w-full rounded-full"
