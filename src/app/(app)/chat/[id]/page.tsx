@@ -37,8 +37,7 @@ const ChatIdPage = () => {
 			setScrollToBottom(true);
 			const recoverChat = async () => {
 				const recoverdChat = await getChat(id);
-				const { chatData, successMessage, errorMessage }: any =
-					recoverdChat;
+				const { chatData }: any = recoverdChat;
 				dispatch(deleteChat());
 				dispatch(createChat(chatData));
 			};
@@ -50,7 +49,6 @@ const ChatIdPage = () => {
 			setScrollToBottom(false);
 		}
 	}, []);
-
 
 	// Scroll down to the last chat
 	useEffect(() => {
@@ -68,8 +66,7 @@ const ChatIdPage = () => {
 			setPrompt("");
 			setScrollToBottom(true);
 			const updateddChat = await addConversationInChat(prompt, id);
-			const { chatData, successMessage, errorMessage }: any =
-				updateddChat;
+			const { chatData }: any = updateddChat;
 
 			dispatch(addConversation(chatData));
 		} catch (error) {

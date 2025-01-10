@@ -25,7 +25,7 @@ const ChatPage = () => {
 			setLoading(true);
 			if (prompt) {
 				const newChat: any = await createNewChat(prompt);
-				const { chatData, successMessage, errorMessage }: any = newChat;
+				const { chatData }: any = newChat;
 				dispatch(deleteChat());
 				dispatch(createChat(chatData));
 				dispatch(addNewChatToList(chatData))

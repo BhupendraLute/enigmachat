@@ -24,13 +24,13 @@ export const AllChatsListSlice = createSlice({
 				(obj: any) => obj._id == payload
 			);
 			if (indexToDelete !== -1) {
-				state.chats.splice(indexToDelete, 1); // Remove 1 element at the found index
+				state.chats.splice(indexToDelete, 1);
 			}
 		},
 		renameChatfromList: (state: any, { payload }) => {
 			for (const chat of state.chats) {
 				if (chat._id === payload.id) {
-					chat.title = payload.title; // Update age directly on the matching object
+					chat.title = payload.title; 
 					break;
 				}
 			}

@@ -39,7 +39,7 @@ export async function PATCH(request: NextRequest, response: NextApiResponse) {
 				status: 200,
 				error: "Failed to update chat",
 			});
-		}		
+		}
 
 		chat.chat.push(newChat);
 
@@ -60,13 +60,13 @@ export async function PATCH(request: NextRequest, response: NextApiResponse) {
 
 // get chat by id
 export async function GET(request: NextRequest, response: NextApiResponse) {
-	const url = request.headers.get("referer");
-	// console.log("url : ", request.headers.get('referer'))
-
-	const chatId = url?.split("/").pop()?.trim();
 	// console.log("chatId:", chatId)
 
 	try {
+		const url = request.headers.get("referer");
+		// console.log("url : ", request.headers.get('referer'))
+
+		const chatId = url?.split("/").pop()?.trim();
 		if (!chatId) {
 			return NextResponse.json({
 				status: 400,
