@@ -1,33 +1,55 @@
-import Chat from "@/models/Chat";
-import { NextApiResponse } from "next";
-import { NextRequest, NextResponse } from "next/server";
+import NextAuth from "next-auth/next";
+import GoogleProvider from "next-auth/providers/google";
+import dbConnect from "@/config/dbConfig";
+import User from "@/models/User";
 
-// rename chat
-export async function PATCH(request: NextRequest, response: NextApiResponse) {
-    const { chatId, title } = await request.json();
+export const maxDuration = 30;
 
-    try {
-        const chat = await Chat.findByIdAndUpdate(
-            chatId,
-            { title },
-            { new: true, lean: true }
-        );
+const handler = NextAuth({
+	providers: [
+		GoogleProvider({
+			clientId: process.env.GOOGLE_ID!,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+		}),
+	],
+	callbacks: {
+		async session({ session }) {
+			await dbConnect();
+			const email = session.user?.email;
+			const sessionUser = await User.findOne({
+				email: email,
+			});
 
-        if (!chat) {
-            return NextResponse.json({
-                status: 404,
-                error: "Chat not found",
-            });
-        }
+			if (session.user) {
+				session.user._id = sessionUser._id;
+			}
 
-        return NextResponse.json({
-            status: 200,
-            data: chat,
-        });
-    } catch (error) {
-        return NextResponse.json({
-            status: 500,
-            error: "Internal Server Error",
-        });
-    }
-}
+			return session;
+		},
+		async signIn({ profile }) {
+			try {
+				await dbConnect();
+
+				// check if user is already exists
+				const userExists = await User.findOne({
+					email: profile?.email,
+				});
+
+				// if user not exist, create new user
+				if (!userExists) {
+					await User.create({
+						email: profile?.email,
+						username: profile?.name,
+					});
+				}
+
+				return true;
+			} catch (error) {
+				console.log(error);
+				return false;
+			}
+		},
+	},
+});
+
+export { handler as GET, handler as POST };
